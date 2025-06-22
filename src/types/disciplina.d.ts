@@ -1,5 +1,5 @@
 export interface Disciplina {
-    id: number,
+    id?: number,
     titulo: string,
     sigla: string,
     creditos: number,
