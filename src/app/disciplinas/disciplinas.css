@@ -1,0 +1,65 @@
+.bg-disciplinas{
+    margin-left: 250px;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    padding: 50px;
+}
+
+.card-dis{
+    background-color: var(--color-contrast-bg);
+    color: var(--color-text);
+    margin-top: 50px;
+    width: 400px;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.text-card{
+    width: 90%;
+    padding: 20px;
+}
+
+.text-card p{
+    margin-bottom: 5px;
+}
+
+.btn-dis {
+    display: flex;
+    gap: 10px;
+    width: 90%;
+    justify-content: right;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #edit {
+    background-color: #3b82f6; /* Azul */
+  }
+  
+  #edit:hover {
+    background-color: #2563eb; /* Azul mais escuro */
+  }
+  
+  #delete {
+    background-color: #ef4444; /* Vermelho */
+  }
+  
+  #delete:hover {
+    background-color: #dc2626; /* Vermelho mais escuro */
+  }
+  

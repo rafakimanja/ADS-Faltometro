@@ -3,6 +3,7 @@
 import { Disciplina } from "@/types/disciplina"
 import { useState } from "react"
 import Link from "next/link"
+import './form.css'
 
 export default function NovaDisciplina(){
 
@@ -36,9 +37,9 @@ export default function NovaDisciplina(){
             </div>
             <div className="btn-group">
                 <Link href='/'>
-                    <button type="button">Voltar</button>
+                    <button type="button" className="btn" id="cancel">Voltar</button>
                 </Link>
-                <button onClick={() => {
+                <button className="btn" id="submit" onClick={() => {
                     handleSubmit(titulo, sigla, creditos, aulas)
                     setAulas(0)
                     setCreditos(0)

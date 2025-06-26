@@ -1,14 +1,12 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background: #F9FAFB;
+  --color-text: #111827;
+  --color-accent: #3B82F6;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+
+  --color-contrast-bg: #E5E7EB; /* Cinza claro para elementos de contraste */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html,
 body {
@@ -35,8 +33,4 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+

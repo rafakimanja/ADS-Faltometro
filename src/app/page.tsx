@@ -1,9 +1,8 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Disciplina } from "@/types/disciplina";
-import "./page.module.css"
+import "./page.css"
 
 export default function Home() {
 
@@ -25,15 +24,6 @@ export default function Home() {
 
   return (
     <div className="main-div">
-      <nav>
-        <ul>
-          <li><Link href='/novaDisciplina'>Adc. Disciplina</Link></li>
-          <li>Registrar Falta</li>
-        </ul>
-      </nav>
-
-      <br/>
-
       {
         disciplinas?.map((disc) => (
           <div key={disc.id} style={{ border: 'solid 1px black', borderRadius: '10px', marginBottom: '1rem'}}>
