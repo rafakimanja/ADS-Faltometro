@@ -13,7 +13,7 @@ export default function NovaDisciplina(){
     const [aulas, setAulas] = useState(0)
 
     const handleSubmit = async (titulo: string, sigla: string, creditos: number, aulas: number) => {
-        const objDisciplina: Disciplina = { titulo, sigla, creditos, aulas, frequencia: 100 }
+        const objDisciplina: Disciplina = { titulo, sigla, creditos, aulas, frequencia: 100, faltas: [] }
         addDisciplina(objDisciplina)
     }
 

@@ -40,9 +40,9 @@ export default function Disciplinas(){
                         <div className="card-dis" key={disciplina.id}>
                             <h2 className="title-dis">{disciplina.titulo} - {disciplina.sigla}</h2>
                             <div className="text-card">
-                                <p><b>Id: </b>{disciplina.id}</p>
                                 <p><b>Créditos: </b>{disciplina.creditos}</p>
                                 <p><b>Quantidade de Aulas: </b>{disciplina.aulas}</p>
+                                <p><b>Frequência: </b>{disciplina.frequencia}%</p>
                             </div>
                             <div className="btn-dis">
                                 <Link href={`/disciplinas/${disciplina.id}`}>
