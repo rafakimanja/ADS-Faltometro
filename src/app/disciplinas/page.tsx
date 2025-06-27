@@ -3,6 +3,7 @@
 import { Disciplina } from "@/types/disciplina";
 import { useEffect, useState } from "react";
 import './disciplinas.css'
+import Link from "next/link";
 
 export default function Disciplinas(){
 
@@ -44,7 +45,9 @@ export default function Disciplinas(){
                                 <p><b>Quantidade de Aulas: </b>{disciplina.aulas}</p>
                             </div>
                             <div className="btn-dis">
-                                <button className="btn" id="edit">Editar</button>
+                                <Link href={`/disciplinas/${disciplina.id}`}>
+                                    <button className="btn" id="edit">Editar</button>
+                                </Link>
                                 <button className="btn" id="delete" onClick={() => deleteDisc(disciplina.id)} >Excluir</button>
                             </div>
                         </div>
