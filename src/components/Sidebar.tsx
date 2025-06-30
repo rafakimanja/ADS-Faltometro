@@ -10,9 +10,9 @@ export default function Sidebar(){
           <div className="logo">Faltômetro</div>
           <nav className="nav-links">
             <Link href='/'>Home</Link>
-            <Link href='formDisc'>Form</Link>
-            <Link href='disciplinas'>Disciplinas</Link>
-            <Link href='formFalta'>Adc. Falta</Link>
+            <Link href='/formDisc'>Form</Link>
+            <Link href='/disciplinas'>Disciplinas</Link>
+            <Link href='/formFalta'>Adc. Falta</Link>
           </nav>
         </div>
       </aside>

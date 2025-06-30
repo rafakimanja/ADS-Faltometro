@@ -1,8 +1,8 @@
 import { fakeDisciplinas } from "@/db/disciplinas";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
-    const { id } = context.params
+export async function GET(req: NextRequest, { params }: { params: { id: string } } ) {
+    const { id } = await params
     const idNum = Number(id)
 
     if(isNaN(idNum)) {

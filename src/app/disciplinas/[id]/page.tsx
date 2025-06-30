@@ -2,7 +2,6 @@
 
 import { useParams } from 'next/navigation'
 import type { Disciplina } from '@/types/disciplina'
-import { Falta } from '@/types/falta'
 import TabelaFaltas from '@/components/TabelaFaltas'
 import { useEffect, useState } from 'react'
 import './disciplina.css'
@@ -26,9 +25,9 @@ export default function Disciplina(){
         getData(id)
     }, [id])
 
-    const showTable = (faltas: Falta[]) => {
+    const showTable = (faltas: number[], disciplina: Disciplina) => {
         if(faltas.length > 0){
-            return <TabelaFaltas faltas={faltas} />
+            return <TabelaFaltas disciplina={disciplina} />
         } else {
             return <p>Nenhuma falta registrada nesta disciplina</p>
         }
@@ -47,7 +46,7 @@ export default function Disciplina(){
                         <p>Frequência: {disciplina.frequencia}%</p>
                     </div>
                     <div className="tabela-faltas">
-                        { showTable(disciplina.faltas) }
+                        { showTable(disciplina.faltas, disciplina) }
                     </div>
                 </div>
             ) : (

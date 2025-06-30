@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { Disciplina } from '@/types/disciplina'
-import './formFalta.css'
-import Link from 'next/link'
 import { Falta } from '@/types/falta'
+import Link from 'next/link'
+import './formFalta.css'
 
 export default function FormFalta(){
 

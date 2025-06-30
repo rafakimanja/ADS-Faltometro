@@ -9,7 +9,20 @@
     color: var(--color-text);
 }
 
-.input-group select {
+ /* Grupos de input */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  .input-group input,
+  .input-group select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -17,8 +30,45 @@
     transition: border-color 0.3s, box-shadow 0.3s;
   }
   
+  .input-group input:focus,
   .input-group select:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
     outline: none;
+  }
+  
+  /* Botões */
+  .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+  }
+  
+  /* Estilo do botão Cancelar */
+  #cancel {
+    background-color: #ef4444;
+  }
+  
+  #cancel:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Estilo do botão Cadastrar */
+  #submit {
+    background-color: #007bff;
+  }
+  
+  #submit:hover {
+    background-color: #0056b3;
   }
