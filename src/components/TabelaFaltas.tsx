@@ -4,6 +4,7 @@ import { Falta } from "@/types/falta"
 import './TabelaFaltas.css'
 import { useEffect, useState } from "react"
 import { Disciplina } from "@/types/disciplina"
+import { fetchFaltas } from "@/functions/apiFalta"
 
 interface TabelaFaltasProps {
     disciplina: Disciplina
@@ -14,13 +15,11 @@ export default function TabelaFaltas({ disciplina }: TabelaFaltasProps){
     const [faltas, setFaltas] = useState<Falta[] | null>(null)
 
     useEffect(() => {
-        
-        const getData = async (id: number) => {
-            const data = await getFaltas(id)
-            setFaltas(data)
-        }
-
-        getData(disciplina.id!)
+        fetchFaltas(disciplina.id!)        
+         .then(setFaltas)
+         .catch(err => {
+            alert(err)
+         })
     }, [])
 
     return(
@@ -47,15 +46,4 @@ export default function TabelaFaltas({ disciplina }: TabelaFaltasProps){
             </tbody>
         </table>
     )
-}
-
-async function getFaltas(id: number) {
-    try{
-        const response = await fetch(`/api/falta?disciplina=${id}`)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        alert(`Erro ao pesquisar as faltas da disciplina | ${error}`)
-        return null
-    }
 }

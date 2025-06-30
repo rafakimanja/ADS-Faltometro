@@ -4,32 +4,27 @@ import { Disciplina } from "@/types/disciplina";
 import { useEffect, useState } from "react";
 import './disciplinas.css'
 import Link from "next/link";
+import { deleteDisciplina, fetchDisciplinas } from "@/functions/apiDisciplina";
 
 export default function Disciplinas(){
 
     const [disciplinas, setDisciplinas] = useState<Disciplina[] | null>(null)
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await fetch('/api/disciplina')
-                const data = await response.json()
-                setDisciplinas(data)
-            } catch (error) {
-                alert(`Erro ao buscar por disciplinas | ${error}`)
-            }
-        }
-
-        fetchData()
+        fetchDisciplinas()
+         .then(setDisciplinas)
+         .catch(err => {
+            alert(err)
+         })
     }, [])
 
     const deleteDisc = async (id: number | undefined) => {
         if (id == null){
             alert('Invalid ID')
         } else {
-            await excluiDisc(id)
+            const data = await deleteDisciplina(id)
+            alert(data)
         }
-        
     }
 
     return(
@@ -56,21 +51,4 @@ export default function Disciplinas(){
             }
         </div>
     )
-}
-
-
-async function excluiDisc(id: number){
-    try{
-        const response = await fetch(`/api/disciplina/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        alert(response)
-    } catch (error) {
-        console.log(error)
-        alert(`Erro ao deletar disciplina: ${error}`)
-    }
 }

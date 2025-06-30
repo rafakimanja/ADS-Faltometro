@@ -1,5 +1,6 @@
 export interface Falta {
     id?: number,
     data: Date,
-    disciplinaID: number
+    disciplinaID: number,
+    periodosFaltados: number
 }
