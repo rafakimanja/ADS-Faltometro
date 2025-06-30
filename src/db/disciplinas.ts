@@ -8,7 +8,7 @@ export const fakeDisciplinas: Disciplina[] = [
         creditos: 4,
         aulas: 60,
         frequencia: 75,
-        faltas: []
+        faltas: [ 3, ]
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ export const fakeDisciplinas: Disciplina[] = [
         creditos: 3,
         aulas: 45,
         frequencia: 80,
-        faltas: []
+        faltas: [ 1, ]
     },
     {
         id: 3,
@@ -35,7 +35,7 @@ export const fakeDisciplinas: Disciplina[] = [
         creditos: 4,
         aulas: 60,
         frequencia: 75,
-        faltas: []
+        faltas: [ 2, ]
     },
     {
         id: 5,
@@ -53,6 +53,6 @@ export const fakeDisciplinas: Disciplina[] = [
         creditos: 3,
         aulas: 45,
         frequencia: 70,
-        faltas: []
+        faltas: [ 4, ]
     }
 ];
