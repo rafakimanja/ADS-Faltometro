@@ -2,9 +2,16 @@
     margin-left: 250px;
     width: 90%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 10px; 
+    grid-template-columns: repeat(2, 1fr); 
+    padding: 40px;
+}
+
+@media (min-width: 1920px){
+  .bg-disciplinas{
+    grid-template-columns: repeat(3, 1fr);
     padding: 50px;
+    gap: 10px;
+  }
 }
 
 .card-dis{

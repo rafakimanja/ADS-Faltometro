@@ -1,7 +1,7 @@
 import { Disciplina } from '@/types/disciplina'
 import { fakeDisciplinas } from '@/db/disciplinas'
 
-export function createDisciplina(nova: Omit<Disciplina, 'id'>): Disciplina {
+export function createDisciplina(nova: Disciplina): Disciplina {
     const novaDisciplina: Disciplina = {       
         id: fakeDisciplinas.length + 1,
         ...nova
@@ -18,7 +18,7 @@ export function getDisciplinaById(id: number): Disciplina | undefined {
     return fakeDisciplinas.find(d => d.id === id)
 }
 
-export function updateDisciplina(id: number, dados: Disciplina) {
+export function updateDisciplina(id: number, dados: Disciplina): Disciplina | null {
     const disc = fakeDisciplinas.find(d => d.id === id)
     if (!disc) return null
 
@@ -29,6 +29,7 @@ export function updateDisciplina(id: number, dados: Disciplina) {
 
     const index = fakeDisciplinas.indexOf(disc)
     fakeDisciplinas[index] = updateDisc
+    return updateDisc
 }
 
 export function deleteDisciplina(id: number): boolean {

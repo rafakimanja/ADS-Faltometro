@@ -4,7 +4,7 @@
     top: 0;
     height: 100vh;
     width: 250px;
-    background-color: var(--color-background);
+    background-color: var(--color-contrast-bg);
     box-shadow: 2px 0 8px var(--color-shadow);
     padding: 2rem 1rem;
     display: flex;
