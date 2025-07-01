@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { deleteDisciplina, getDisciplina } from '@/functions/apiDisciplina'
 import { fetchFaltas } from '@/functions/apiFalta'
 import TabelaFaltas from '@/components/Tabela/TabelaFaltas'
-import calculaFreq from '@/functions/calculaFrequencia'
+import ExibeFrequencia from '@/components/Frequencia/ExibeFreq'
 import './disciplina.css'
 
 export default function Disciplina(){
@@ -50,7 +50,7 @@ export default function Disciplina(){
                         <p>Sigla: {disciplina.sigla}</p>
                         <p>Créditos: {disciplina.creditos}</p>
                         <p>Aulas: {disciplina.aulas}</p>
-                        <p>Frequência: {calculaFreq(disciplina, faltas!)}%</p>
+                        <p>Frequência: <ExibeFrequencia disciplina={disciplina}/></p>
                     </div>
                     <div className="btn-group">
                         <button>Salvar</button>
