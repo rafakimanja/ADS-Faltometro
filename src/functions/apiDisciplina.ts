@@ -10,6 +10,16 @@ export async function fetchDisciplinas(): Promise<Disciplina[]> {
     return data
 }
 
+export async function getDisciplina(id: number): Promise<Disciplina>{
+    const response = await fetch(`/api/disciplina/${id}`)
+    const data = await response.json()
+    if(!response.ok) {
+        console.table(data)
+        throw new Error('Erro ao buscar pela disciplina')
+    }
+    return data
+}
+
 export async function deleteDisciplina(id: number) {
     const response = await fetch(`/api/disciplina/${id}`, {
         method: 'DELETE',

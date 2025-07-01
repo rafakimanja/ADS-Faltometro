@@ -4,6 +4,4 @@ export interface Disciplina {
     sigla: string,
     creditos: number,
     aulas: number,
-    frequencia: number,
-    faltas: number[],
 }

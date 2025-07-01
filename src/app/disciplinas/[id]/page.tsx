@@ -1,9 +1,13 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import type { Disciplina } from '@/@types/disciplina'
-import TabelaFaltas from '@/components/TabelaFaltas'
+import type { Falta } from '@/@types/falta'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { deleteDisciplina, getDisciplina } from '@/functions/apiDisciplina'
+import { fetchFaltas } from '@/functions/apiFalta'
+import TabelaFaltas from '@/components/TabelaFaltas'
+import calculaFreq from '@/functions/calculaFrequencia'
 import './disciplina.css'
 
 export default function Disciplina(){
@@ -12,25 +16,28 @@ export default function Disciplina(){
     const id = Number(params.id)
 
     const [disciplina, setDisciplina] = useState<Disciplina | null>(null)
+    const [faltas, setFaltas] = useState<Falta[] | null>(null)
 
     useEffect(() => {
-
         if(id === null) return
+        
+        getDisciplina(id)
+         .then(setDisciplina)
+         .catch(err => {
+            alert(err)
+         })
 
-        const getData = async (id: number) => {
-            const data = await getDisc(id)
-            setDisciplina(data)
-        }
+        fetchFaltas(id)        
+         .then(setFaltas)
+         .catch(err => {
+            alert(err)
+         })
 
-        getData(id)
     }, [id])
 
-    const showTable = (faltas: number[], disciplina: Disciplina) => {
-        if(faltas.length > 0){
-            return <TabelaFaltas disciplina={disciplina} />
-        } else {
-            return <p>Nenhuma falta registrada nesta disciplina</p>
-        }
+    const deletar = async (id: number) => {
+        const data = await deleteDisciplina(id)
+        alert(data)
     }
 
     return(
@@ -43,10 +50,16 @@ export default function Disciplina(){
                         <p>Sigla: {disciplina.sigla}</p>
                         <p>Créditos: {disciplina.creditos}</p>
                         <p>Aulas: {disciplina.aulas}</p>
-                        <p>Frequência: {disciplina.frequencia}%</p>
+                        <p>Frequência: {calculaFreq(disciplina, faltas!)}%</p>
+                    </div>
+                    <div className="btn-group">
+                        <button>Salvar</button>
+                        <button onClick={() => deletar(disciplina.id!)}>Excluir</button>
                     </div>
                     <div className="tabela-faltas">
-                        { showTable(disciplina.faltas, disciplina) }
+                        { 
+                            faltas ? <TabelaFaltas faltas={faltas} /> : <p>Sem faltas registradas</p>
+                        }
                     </div>
                 </div>
             ) : (
@@ -54,15 +67,4 @@ export default function Disciplina(){
             )}
         </div>
     )
-}
-
-async function getDisc(id: number){
-    try{
-        const response = await fetch(`/api/disciplina/${id}`)
-        const data = await response.json()
-        return data
-    } catch (error) {
-        alert(`Erro ao pesquisar pela disciplina | ${error}`)
-        return null
-    }
 }

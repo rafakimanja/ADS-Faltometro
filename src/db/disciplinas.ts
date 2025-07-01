@@ -7,8 +7,6 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "AED",
         creditos: 4,
         aulas: 60,
-        frequencia: 75,
-        faltas: [ 3, ]
     },
     {
         id: 2,
@@ -16,8 +14,6 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "BD",
         creditos: 3,
         aulas: 45,
-        frequencia: 80,
-        faltas: [ 1, ]
     },
     {
         id: 3,
@@ -25,8 +21,6 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "ES",
         creditos: 4,
         aulas: 60,
-        frequencia: 70,
-        faltas: []
     },
     {
         id: 4,
@@ -34,8 +28,6 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "SO",
         creditos: 4,
         aulas: 60,
-        frequencia: 75,
-        faltas: [ 2, ]
     },
     {
         id: 5,
@@ -43,8 +35,6 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "RC",
         creditos: 3,
         aulas: 45,
-        frequencia: 85,
-        faltas: []
     },
     {
         id: 6,
@@ -52,7 +42,5 @@ export const fakeDisciplinas: Disciplina[] = [
         sigla: "MD",
         creditos: 3,
         aulas: 45,
-        frequencia: 70,
-        faltas: [ 4, ]
     }
 ];

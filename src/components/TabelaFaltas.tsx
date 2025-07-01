@@ -2,26 +2,12 @@
 
 import { Falta } from "@/@types/falta"
 import './TabelaFaltas.css'
-import { useEffect, useState } from "react"
-import { Disciplina } from "@/@types/disciplina"
-import { fetchFaltas } from "@/functions/apiFalta"
 
 interface TabelaFaltasProps {
-    disciplina: Disciplina
+    faltas: Falta[]
 }
 
-export default function TabelaFaltas({ disciplina }: TabelaFaltasProps){
-
-    const [faltas, setFaltas] = useState<Falta[] | null>(null)
-
-    useEffect(() => {
-        fetchFaltas(disciplina.id!)        
-         .then(setFaltas)
-         .catch(err => {
-            alert(err)
-         })
-    }, [])
-
+export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
     return(
         <table className="tb-faltas">
             <thead>
@@ -38,7 +24,10 @@ export default function TabelaFaltas({ disciplina }: TabelaFaltasProps){
                         <tr key={falta.id}>
                             <td>{falta.id}</td>
                             <td>{new Date(falta.data).toLocaleDateString('pt-BR')}</td>
-                            <td>{disciplina.titulo}</td>
+                            <td>
+                                <button>Edita</button>
+                                <button>Apaga</button>
+                            </td>
                         </tr>
                         ))
                     ) : null

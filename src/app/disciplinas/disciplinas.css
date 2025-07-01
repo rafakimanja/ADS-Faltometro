@@ -43,10 +43,11 @@
     gap: 10px;
     width: 90%;
     justify-content: right;
+    
   }
   
   .btn {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
     color: white;
