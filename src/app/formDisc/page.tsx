@@ -1,6 +1,6 @@
 'use client'
 
-import { Disciplina } from "@/types/disciplina"
+import { Disciplina } from "@/@types/disciplina"
 import { useState } from "react"
 import Link from "next/link"
 import './form.css'

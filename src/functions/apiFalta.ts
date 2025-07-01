@@ -1,4 +1,4 @@
-import { Falta } from "@/types/falta";
+import { Falta } from "@/@types/falta";
 
 export async function fetchFaltas(id: number): Promise<Falta[]> {
     const response = await fetch(`/api/falta?disciplina=${id}`)

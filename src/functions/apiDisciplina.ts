@@ -1,4 +1,4 @@
-import { Disciplina } from "@/types/disciplina";
+import { Disciplina } from "@/@types/disciplina";
 
 export async function fetchDisciplinas(): Promise<Disciplina[]> {
     const response = await fetch('/api/disciplina')

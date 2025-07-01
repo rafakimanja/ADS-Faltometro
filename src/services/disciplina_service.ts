@@ -1,4 +1,4 @@
-import { Disciplina } from '@/types/disciplina'
+import { Disciplina } from '@/@types/disciplina'
 import { fakeDisciplinas } from '@/db/disciplinas'
 
 export function createDisciplina(nova: Disciplina): Disciplina {

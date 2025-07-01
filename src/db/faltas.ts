@@ -1,4 +1,4 @@
-import { Falta } from "@/types/falta";
+import { Falta } from "@/@types/falta";
 
 export const fakeFaltas: Falta[] = [
     {

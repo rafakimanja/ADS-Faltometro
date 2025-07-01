@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import type { Disciplina } from '@/types/disciplina'
+import type { Disciplina } from '@/@types/disciplina'
 import TabelaFaltas from '@/components/TabelaFaltas'
 import { useEffect, useState } from 'react'
 import './disciplina.css'

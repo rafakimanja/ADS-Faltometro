@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Disciplina } from '@/types/disciplina'
-import { Falta } from '@/types/falta'
+import { Disciplina } from '@/@types/disciplina'
+import { Falta } from '@/@types/falta'
 import Link from 'next/link'
 import './formFalta.css'
 import { fetchDisciplinas } from '@/functions/apiDisciplina'

@@ -1,4 +1,4 @@
-import { Disciplina } from "@/types/disciplina"
+import { Disciplina } from "@/@types/disciplina"
 
 export const fakeDisciplinas: Disciplina[] = [
     {

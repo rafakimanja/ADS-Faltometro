@@ -1,9 +1,9 @@
 'use client'
 
-import { Falta } from "@/types/falta"
+import { Falta } from "@/@types/falta"
 import './TabelaFaltas.css'
 import { useEffect, useState } from "react"
-import { Disciplina } from "@/types/disciplina"
+import { Disciplina } from "@/@types/disciplina"
 import { fetchFaltas } from "@/functions/apiFalta"
 
 interface TabelaFaltasProps {

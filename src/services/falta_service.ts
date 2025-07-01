@@ -1,4 +1,4 @@
-import { Falta } from "@/types/falta";
+import { Falta } from "@/@types/falta";
 import { fakeFaltas } from "@/db/faltas";
 
 export function createFalta(falta: Falta): Falta {

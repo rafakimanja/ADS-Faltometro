@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { Disciplina } from "@/types/disciplina";
+import { Disciplina } from "@/@types/disciplina";
 import "./page.css"
 
 export default function Home() {
