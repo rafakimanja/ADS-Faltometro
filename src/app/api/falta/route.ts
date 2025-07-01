@@ -31,15 +31,9 @@ export async function GET(req: NextRequest) {
 
     const faltasDaDisc = faltas.filter((falta) => falta.disciplinaID === disc.id)
 
-    if(faltasDaDisc.length > 0){
-        return new NextResponse(JSON.stringify(faltasDaDisc), {
-            status: 200,
-        })
-    } else {
-        return new NextResponse('Nenhuma falta registra nesta disciplina', {
-            status: 404,
-        })
-    }
+    return new NextResponse(JSON.stringify(faltasDaDisc), {
+        status: 200,
+    })
 }
 
 export async function POST(req: NextRequest) {

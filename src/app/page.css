@@ -1,3 +1,56 @@
 .main-div{
     margin-left: 250px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.cards{
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 40px;
+    gap: 5rem;
+    margin-top: 5rem;
+}
+
+@media (min-width: 1920px){
+    .cards{
+        width: 70%;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card-content{
+    width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    color: #f1f1f1;
+}
+
+.card{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card p{
+    font-size: 15px;
+}
+
+.card h1{
+    font-size: 30pt;
+}
+
+#freq{
+    border-radius: 10px 0 0 10px;
+}
+
+#titulo{
+    border-radius: 0 10px 10px 0;
 }

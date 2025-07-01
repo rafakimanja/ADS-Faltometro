@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { deleteDisciplina, getDisciplina } from '@/functions/apiDisciplina'
 import { fetchFaltas } from '@/functions/apiFalta'
-import TabelaFaltas from '@/components/TabelaFaltas'
+import TabelaFaltas from '@/components/Tabela/TabelaFaltas'
 import calculaFreq from '@/functions/calculaFrequencia'
 import './disciplina.css'
 
