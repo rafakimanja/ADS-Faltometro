@@ -20,6 +20,25 @@ export async function getDisciplina(id: number): Promise<Disciplina>{
     return data
 }
 
+export async function createDisciplina(disciplina: Disciplina): Promise<Disciplina> {
+    const response = await fetch('/api/disciplina', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(disciplina)
+    })
+
+    const { data } = await response.json()
+
+    if(!response.ok){
+        console.table(data)
+        throw new Error('Erro ao criar nova Disciplina')
+    }
+
+    return data
+}
+
 export async function deleteDisciplina(id: number) {
     const response = await fetch(`/api/disciplina/${id}`, {
         method: 'DELETE',

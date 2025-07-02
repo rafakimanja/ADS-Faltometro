@@ -3,6 +3,7 @@
 import { Disciplina } from "@/@types/disciplina"
 import { useState } from "react"
 import Link from "next/link"
+import { createDisciplina } from "@/functions/apiDisciplina"
 import './form.css'
 
 export default function NovaDisciplina(){
@@ -11,10 +12,15 @@ export default function NovaDisciplina(){
     const [sigla, setSigla] = useState('')
     const [creditos, setCreditos] = useState(0)
     const [aulas, setAulas] = useState(0)
+    
 
     const handleSubmit = async (titulo: string, sigla: string, creditos: number, aulas: number) => {
-        const objDisciplina: Disciplina = { titulo, sigla, creditos, aulas, frequencia: 100, faltas: [] }
-        addDisciplina(objDisciplina)
+        const objDisciplina: Disciplina = { titulo, sigla, creditos, aulas }
+        createDisciplina(objDisciplina)
+         .then(() => alert(`Nova disciplina cadastrada`))
+         .catch(err => {
+            alert(err)
+         })
     }
 
     return(
@@ -49,21 +55,4 @@ export default function NovaDisciplina(){
             </div>
         </div>
     )
-}
-
-async function addDisciplina(newDisc: Disciplina) {
-    try{
-        const response = await fetch('/api/disciplina', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newDisc)
-        })
-
-        const data = await response.json()
-        alert(`Disciplina adicionada com sucesso | ${data}`)
-    } catch(error) {
-        alert(`Erro ao adicionar nova disciplina | ${error}`)
-    }
 }

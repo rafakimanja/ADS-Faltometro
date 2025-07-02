@@ -50,7 +50,7 @@ export default function FormFalta(){
             return
         }
 
-        const objFalta: Falta = {data, disciplinaID: disciplina.id!}
+        const objFalta: Falta = {data, periodosFaltados: creditos, disciplinaID: disciplina.id!}
         createFalta(objFalta)
          .then(() => alert(`Nova falta adicionada em ${disciplina.titulo}`))
          .catch(err => { 

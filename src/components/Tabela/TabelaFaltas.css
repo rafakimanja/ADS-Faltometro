@@ -54,3 +54,21 @@
   transition: background-color 0.3s ease;
   margin-right: 20px;
 }
+
+  /* Estilo do botão Cancelar */
+  #cancel {
+    background-color: #ef4444;
+  }
+  
+  #cancel:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Estilo do botão Cadastrar */
+  #submit {
+    background-color: #007bff;
+  }
+  
+  #submit:hover {
+    background-color: #0056b3;
+  }
