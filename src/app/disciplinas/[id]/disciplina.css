@@ -1,3 +1,69 @@
 .bg-disciplina {
     margin-left: 250px;
 }
+
+.bg-info{
+    width: 55%;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: var(--color-text)
+}
+
+.info-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-data{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 13pt;
+    font-weight: bolder;
+}
+
+.grupo-botoes{
+    width: 90%;
+    margin: 25px 0;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.tabela-faltas{
+    display: flex;
+    justify-content: center;
+}
+
+.botoes {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff;
+  }
+
+    /* Estilo do botão Cancelar */
+  #cancel {
+    background-color: #ef4444;
+  }
+  
+  #cancel:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Estilo do botão Cadastrar */
+  #submit {
+    background-color: #007bff;
+  }
+  
+  #submit:hover {
+    background-color: #0056b3;
+  }

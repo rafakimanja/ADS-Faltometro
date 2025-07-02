@@ -1,5 +1,5 @@
 .tb-faltas {
-  width: 100%;
+  width: 85%;
   border-collapse: collapse;
   margin-top: 1rem;
   font-family: Arial, sans-serif;
@@ -8,18 +8,49 @@
 .tb-faltas th,
 .tb-faltas td {
   border: 1px solid #ccc;
+}
+
+.tb-faltas th{
   padding: 8px 12px;
+}
+
+.tb-faltas td{
+  padding: 10px 12px;
+}
+
+.cl-id{
   text-align: left;
+  width: 10rem;
+}
+
+.cl-dt{
+  text-align: center;
+}
+
+.cl-ds{
+  text-align: right;
+  width: 10rem;
 }
 
 .tb-faltas thead {
-  background-color: #f2f2f2;
+  background-color: #000;
+  color: #fff;
 }
 
 .tb-faltas tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.tb-faltas tr:hover {
-  background-color: #eaeaea;
+.botoes-tabela{
+  gap: 10px;
+}
+
+.btn-tabela{
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 20px;
 }

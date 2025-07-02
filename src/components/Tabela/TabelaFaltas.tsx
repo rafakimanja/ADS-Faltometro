@@ -12,9 +12,9 @@ export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
         <table className="tb-faltas">
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>Data</th>
-                <th>Disciplina</th>
+                <th className="cl-id">Períodos</th>
+                <th className="cl-dt">Data</th>
+                <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,11 +22,15 @@ export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
                     faltas ? (
                         faltas.map((falta) => (
                         <tr key={falta.id}>
-                            <td>{falta.id}</td>
-                            <td>{new Date(falta.data).toLocaleDateString('pt-BR')}</td>
-                            <td>
-                                <button>Edita</button>
-                                <button>Apaga</button>
+                            <td className="cl-id">{falta.periodosFaltados}</td>
+                            <td className="cl-dt">{new Date(falta.data).toLocaleDateString('pt-BR')}</td>
+                            <td className="cl-ds">
+                                <button className="btn-tabela" id="edit">
+                                    <img src="/edit.svg" alt="" />
+                                </button>
+                                <button className="btn-tabela" id="delete">
+                                    <img src="/delete.svg" alt="" />
+                                </button>
                             </td>
                         </tr>
                         ))

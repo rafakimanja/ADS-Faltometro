@@ -46,15 +46,16 @@ export default function Disciplina(){
                 <div className='bg-info'>
                     <div className="info-data">
                         <h1>{disciplina.titulo}</h1>
-                        <p>ID: {disciplina.id}</p>
-                        <p>Sigla: {disciplina.sigla}</p>
-                        <p>Créditos: {disciplina.creditos}</p>
-                        <p>Aulas: {disciplina.aulas}</p>
-                        <p>Frequência: <ExibeFrequencia disciplina={disciplina}/></p>
+                        <div className="text-data">
+                            <p>Sigla: {disciplina.sigla}</p>
+                            <p>Créditos: {disciplina.creditos}</p>
+                            <p>Aulas: {disciplina.aulas}</p>
+                            <p>Frequência: <ExibeFrequencia disciplina={disciplina}/></p>
+                        </div>
                     </div>
-                    <div className="btn-group">
-                        <button>Salvar</button>
-                        <button onClick={() => deletar(disciplina.id!)}>Excluir</button>
+                    <div className="grupo-botoes">
+                        <button className='botoes' id='submit'>Editar</button>
+                        <button onClick={() => deletar(disciplina.id!)} className='botoes' id='cancel'>Excluir</button>
                     </div>
                     <div className="tabela-faltas">
                         { 
