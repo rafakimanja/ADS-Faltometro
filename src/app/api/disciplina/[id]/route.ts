@@ -45,10 +45,7 @@ export async function PUT( req: NextRequest, { params }: { params: { id: string 
         )
     }
 
-    return new NextResponse(JSON.stringify({ 
-            message: 'Disciplina atualizada',
-            data: resp
-        }), 
+    return new NextResponse(JSON.stringify({ message: 'Disciplina atualizada' }), 
         { status: 200 }
     )
 }

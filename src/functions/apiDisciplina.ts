@@ -53,7 +53,7 @@ export async function updateDisciplina(id: number, disciplina: DisciplinaDTO) {
         console.table(data)
         throw new Error(data.error)
     }
-    return data
+    return data.message
 }
 
 export async function deleteDisciplina(id: number) {

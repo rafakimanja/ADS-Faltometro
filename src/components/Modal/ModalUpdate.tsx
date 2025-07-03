@@ -1,17 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import type { Disciplina } from '@/@types/disciplina'
-import type { Falta } from '@/@types/falta'
 import './ModalUpdate.css'
+import type { FaltaDTO } from '@/@types/faltaDTO'
+import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
 
 
 interface ModalUpdateProps {
   isOpen: boolean
   onClose: () => void
   formType: 'disciplina' | 'falta'
-  objType: Disciplina | Falta
-  onSubmit: (obj: Disciplina | Falta) => void
+  objType: DisciplinaDTO | FaltaDTO
+  onSubmit: (obj: DisciplinaDTO | FaltaDTO) => void
 }
 
 export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubmit }: ModalUpdateProps) {
@@ -20,29 +20,41 @@ export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubm
     const [creditos, setCreditos] = useState(0)
     const [aulas, setAulas] = useState(0)
     const [creditosFalta, setCreditosFalta] = useState(0)
-    const [data, setData] = useState<Date | null>(null)
+    const [data, setData] = useState<Date>()
+    const [idDisc, setIddisc] = useState(0)
     
     
     useEffect(() => {
         if (formType === 'disciplina') {
-            const disciplina = objType as Disciplina
+            const disciplina = objType as DisciplinaDTO
             setTitulo(disciplina.titulo)
             setSigla(disciplina.sigla)
             setCreditos(disciplina.creditos)
             setAulas(disciplina.aulas)
         } else {
-            const falta = objType as Falta
+            const falta = objType as FaltaDTO
             setCreditosFalta(falta.periodosFaltados)
             setData(new Date(falta.data)) // garantir instância válida
+            setIddisc(falta.disciplinaID)
         }
     }, [formType, objType])
 
-  /* --- não renderiza se fechado --- */
-  if (!isOpen) return null
+    if (!isOpen) return null
 
-  const handleSalvar = () => {
-    onClose()
-  }
+    const handleSalvar = (formType: 'disciplina' | 'falta') => {
+      if(formType === 'disciplina'){
+        onSubmit({ titulo, sigla, creditos, aulas })
+      }
+
+      if (formType === 'falta') {
+        if (!data) {
+          alert("Data não informada");
+          return;
+        }
+        onSubmit({ data, periodosFaltados: creditosFalta, disciplinaID: idDisc });
+      }
+      onClose()
+    }
 
   /* --- render dos dois forms --- */
   const renderDisciplinaForm = () => (
@@ -92,7 +104,7 @@ export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubm
           <button type="button" className='cancel' onClick={onClose}>
             Cancelar
           </button>
-          <button type="button" className='save' onClick={handleSalvar}>
+          <button type="button" className='save' onClick={() => handleSalvar(formType)}>
             Salvar
           </button>
         </div>
