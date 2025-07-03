@@ -17,13 +17,8 @@ export async function POST(req: NextRequest) {
 
     const resp = await createDisciplina({ titulo, sigla, creditos, aulas })
 
-    if(resp){
-        return new NextResponse( JSON.stringify({ error: 'Nova disciplina cadastrada com sucesso.' }),
-        { status: 201 }
-      )
-    } else {
-        return new NextResponse( JSON.stringify({ error: 'Erro ao criar disciplina.' }),
-        { status: 500 }
-      )
-    }
+    if(resp)
+        return new NextResponse( JSON.stringify({ message: 'Nova disciplina cadastrada com sucesso.' }), { status: 201 })
+    else
+        return new NextResponse( JSON.stringify({ error: 'Erro ao criar disciplina.' }), { status: 500 })
 }

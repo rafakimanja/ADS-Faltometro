@@ -1,4 +1,5 @@
-import { fakeDisciplinas } from "@/db/disciplinas";
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO";
+import { getDisciplinaById, updateDisciplina, deleteDisciplina } from "@/services/disciplina_service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } } ) {
@@ -6,84 +7,72 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     const idNum = Number(id)
 
     if(isNaN(idNum)) {
-        return new NextResponse("Invalid ID", {
-            status: 400,
-        })
+        return new NextResponse(JSON.stringify({ error: "Invalid ID" }), 
+            { status: 400 }
+        )
     }
 
-    const user = fakeDisciplinas.find((disciplina) => disciplina.id === idNum)
+    const disciplina = await getDisciplinaById(idNum)
 
-
-    if(!user){
-        return new NextResponse("User not found", {
-            status: 404, 
-        })
+    if(!disciplina){
+        return new NextResponse(JSON.stringify({ error: 'Disciplina nao encontrada' }), 
+            { status: 404 }
+        )
     }
 
-    return new NextResponse(JSON.stringify(user), {
-        status: 200,
-    })
+    return new NextResponse(JSON.stringify({ 
+            message: 'Disciplina cadastrada',
+            data: disciplina
+        }), 
+        { status: 200 }
+    )
 }
 
 
-export async function PUT(
-    req: NextRequest,
-    context: { params: { id: string } }
-    ){
-    
-        const body = await req.json()
-        const { id } = context.params
-        const idNum = Number(id)
-
-        if(isNaN(idNum)){
-            return new NextResponse("Invalid ID", {
-                status: 400,
-            })
-        }
-
-        const disc = fakeDisciplinas.find((disciplina) => disciplina.id === idNum)
-
-        if(!disc){
-            return new NextResponse("Disciplina not found", {
-                status: 404,
-            })
-        }
-
-        const updateDisciplina = {
-            id: disc.id,
-            ...body,
-        }
-
-        const index = fakeDisciplinas.indexOf(disc)
-        fakeDisciplinas[index] = updateDisciplina
-
-        return new NextResponse(JSON.stringify(updateDisciplina), {
-            status: 200,
-        })
-}
-
-
-export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
-    const { id } = context.params
+export async function PUT( req: NextRequest, { params }: { params: { id: string } } ){
+    const body = await req.json()
+    const { id } = await params
     const idNum = Number(id)
 
-    if(isNaN(idNum)){
-        return new NextResponse("Invalid ID", {
-            status: 400,
-        })
+    if(isNaN(idNum)) {
+        return new NextResponse(JSON.stringify({ error: "Invalid ID" }), 
+            { status: 400 }
+        )
     }
 
-    const disc = fakeDisciplinas.find((d) => d.id === idNum)
-    if(!disc){
-        return new NextResponse("Disciplina not found", {
-            status: 404,
-        })
+    const { titulo, sigla, creditos, aulas } = body as DisciplinaDTO
+
+    const resp = await updateDisciplina(idNum, { titulo, sigla, creditos, aulas })
+
+    if(!resp){
+        return new NextResponse(JSON.stringify({ error: "Disciplina nao encontrada"}), 
+            { status: 404 }
+        )
     }
 
-    const index = fakeDisciplinas.indexOf(disc)
-    fakeDisciplinas.splice(index, 1)
+    return new NextResponse(JSON.stringify({ 
+            message: 'Disciplina atualizada',
+            data: resp
+        }), 
+        { status: 200 }
+    )
+}
 
-    return new NextResponse(`Disciplina - ${disc.titulo} - deletada`, {
-        status: 200,
-    })
+
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } } ) {
+    const { id } = await params
+    const idNum = Number(id)
+
+    if(isNaN(idNum)) {
+        return new NextResponse(JSON.stringify({ error: "Invalid ID" }), 
+            { status: 400 }
+        )
+    }
+
+    const resp = await deleteDisciplina(idNum)
+
+    if(resp)
+        return new NextResponse(JSON.stringify({ message: 'Disciplina deletada' }), { status: 200 })
+    else
+        return new NextResponse(JSON.stringify({ error: "Disciplina nao encontrada" }), { status: 404 })
 }
