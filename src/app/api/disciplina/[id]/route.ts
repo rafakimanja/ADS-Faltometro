@@ -20,12 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         )
     }
 
-    return new NextResponse(JSON.stringify({ 
-            message: 'Disciplina cadastrada',
-            data: disciplina
-        }), 
-        { status: 200 }
-    )
+    return new NextResponse(JSON.stringify(disciplina), { status: 200 } )
 }
 
 

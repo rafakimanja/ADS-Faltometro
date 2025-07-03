@@ -8,40 +8,39 @@ export async function GET(req: NextRequest) {
     const idNum = Number(id_disc)
 
     if (!id_disc) {
-        return new NextResponse("Parâmetro 'disciplina' é obrigatório", {
-        status: 400,
-        });
+        return new NextResponse(JSON.stringify({ error: "Parâmetro 'disciplina' é obrigatório" }), 
+            { status: 400 }
+        )
     }
 
     if(isNaN(idNum)) {
-        return new NextResponse("Invalid ID", {
-            status: 400,
-        })
+        return new NextResponse(JSON.stringify({ error: "Invalid ID" }), 
+            { status: 400 }
+        )
     }
 
-    const disc = getDisciplinaById(idNum)
+    const disc = await getDisciplinaById(idNum)
 
     if(!disc){
-        return new NextResponse("Disciplina não encontrada", {
-            status: 404, 
-        })
+        return new NextResponse(JSON.stringify({ error: "Disciplina não encontrada" }), 
+            { status: 404 }
+        )
     }
 
-    const faltas = getFaltas()
+    const faltas = await getFaltas()
 
     const faltasDaDisc = faltas.filter((falta) => falta.disciplinaID === disc.id)
 
-    return new NextResponse(JSON.stringify(faltasDaDisc), {
-        status: 200,
-    })
+    return new NextResponse(JSON.stringify(faltasDaDisc), { status: 200 })
 }
 
 export async function POST(req: NextRequest) {
     const body = await req.json()
 
-    const resp = createFalta(body)
+    const resp = await createFalta(body)
 
-    return new NextResponse(JSON.stringify(resp), {
-        status: 201,
-    })
+    if(resp)
+        return new NextResponse(JSON.stringify({ message: 'Falta registrada com sucesso'}), { status: 201 })
+    else
+        return new NextResponse(JSON.stringify({ error: 'Erro ap registrar falta'}), { status: 500 })
 }

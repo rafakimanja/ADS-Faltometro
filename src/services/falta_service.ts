@@ -1,43 +1,74 @@
-import { Falta } from "@/@types/falta";
-import { fakeFaltas } from "@/db/faltas";
+import type { FaltaDTO } from "@/@types/faltaDTO"; 
+import { prisma } from "@/db/conector";
 
-export function createFalta(falta: Falta): Falta {
-    const novaFalta: Falta = {
-        id: fakeFaltas.length + 1,
-        ...falta
+export async function createFalta(falta: FaltaDTO): Promise<boolean> {
+    try{
+        await prisma.falta.create({
+            data: {
+                data: falta.data,
+                periodosFaltados: falta.periodosFaltados,
+                disciplinaID: falta.disciplinaID
+            },
+        })
+        return true
+    } catch(err) {
+        console.error("Erro ao criar a falta: ", err)
+        return false
     }
-    fakeFaltas.push(novaFalta)
-    return novaFalta
 }
 
-export function getFaltas(): Falta[]{
-    return fakeFaltas
+export async function getFaltas(): Promise<FaltaDTO[]>{
+    return prisma.falta.findMany({
+        select: {
+            id: true,
+            data: true,
+            periodosFaltados: true,
+            disciplinaID: true
+        }
+    })
 }
 
-export function getFaltaById(id: number): Falta | undefined {
-    return fakeFaltas.find(f => f.id === id)
+export async function getFaltaById(id: number): Promise<FaltaDTO | null> {
+    return await prisma.falta.findUnique({
+        where: { id },
+        select: {
+            id: true,
+            data: true,
+            periodosFaltados: true,
+            disciplinaID: true
+        }
+    })
 }
 
-export function updateFalta(id: number, dados: Falta): Falta | null{
-    const falta = fakeFaltas.find(f => f.id === id)
-    if(!falta) return null
+export async function updateFalta(id: number, falta: FaltaDTO): Promise<FaltaDTO | null>{
+    try{
+        const updated = await prisma.falta.update({
+            where: { id },
+            data: {
+                data: falta.data,
+                periodosFaltados: falta.periodosFaltados,
+            },
+            select: {
+                id: true,
+                data: true,
+                periodosFaltados: true,
+                disciplinaID: true
+            }
+        })
 
-    const updateFalta = {
-        id: falta.id,
-        ...dados
+        return updated
+    } catch (error) {
+        console.error('Erro ao atualizar a falta: ', error)
+        return null
     }
-
-    const index = fakeFaltas.indexOf(falta)
-    fakeFaltas[index] = updateFalta
-    return falta
 }
 
-export function deleteFalta(id: number): boolean {
-    const falta = fakeFaltas.find(f => f.id === id)
-    if(!falta) return false
-
-    const index = fakeFaltas.indexOf(falta)
-    fakeFaltas.splice(index, 1)
-
-    return true
+export async function deleteFalta(id: number): Promise<boolean> {
+    try{
+        await prisma.falta.delete({ where: { id } })
+        return true
+    } catch (error) {
+        console.error('Erro ao excluir a falta: ', error)
+        return false
+    }
 }

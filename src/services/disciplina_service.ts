@@ -13,13 +13,13 @@ export async function createDisciplina(disc: DisciplinaDTO): Promise<boolean> {
         })
         return true
     } catch (err) {
-        console.log("Erro ao criar disciplina: ",err)
+        console.error("Erro ao criar disciplina: ",err)
         return false
     }
 }
 
 export async function getDisciplinas(): Promise<DisciplinaDTO[]> {
-    return prisma.disciplina.findMany({
+    return await prisma.disciplina.findMany({
         select: {
             id: true,
             titulo: true,
@@ -71,9 +71,7 @@ export async function updateDisciplina(id: number, dados: DisciplinaDTO): Promis
 
 export async function deleteDisciplina(id: number): Promise<boolean> {
   try {
-    await prisma.disciplina.delete({
-      where: { id },
-    })
+    await prisma.disciplina.delete({ where: { id } })
     return true
   } catch (error) {
     console.error('Erro ao deletar disciplina:', error)
