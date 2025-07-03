@@ -1,43 +1,82 @@
-import { Disciplina } from '@/@types/disciplina'
-import { fakeDisciplinas } from '@/db/disciplinas'
+import { prisma } from '@/db/conector'
+import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
 
-export function createDisciplina(nova: Disciplina): Disciplina {
-    const novaDisciplina: Disciplina = {       
-        id: fakeDisciplinas.length + 1,
-        ...nova
+export async function createDisciplina(disc: DisciplinaDTO): Promise<boolean> {
+   try {
+        await prisma.disciplina.create({
+            data: {
+                titulo: disc.titulo,
+                sigla: disc.sigla,
+                creditos: disc.creditos,
+                aulas: disc.aulas,
+            },
+        })
+        return true
+    } catch (err) {
+        console.log("Erro ao criar disciplina: ",err)
+        return false
     }
-    fakeDisciplinas.push(novaDisciplina)
-    return novaDisciplina
 }
 
-export function getDisciplinas(): Disciplina[] {
-    return fakeDisciplinas
+export async function getDisciplinas(): Promise<DisciplinaDTO[]> {
+    return prisma.disciplina.findMany({
+        select: {
+            id: true,
+            titulo: true,
+            sigla: true,
+            creditos: true,
+            aulas: true,
+        }
+    })
 }
 
-export function getDisciplinaById(id: number): Disciplina | undefined {
-    return fakeDisciplinas.find(d => d.id === id)
+export async function getDisciplinaById(id: number): Promise<DisciplinaDTO | null> {
+    return await prisma.disciplina.findUnique({
+        where: { id },
+        select: {
+            id: true,
+            titulo: true,
+            sigla: true,
+            creditos: true,
+            aulas: true,
+        }
+    })
 }
 
-export function updateDisciplina(id: number, dados: Disciplina): Disciplina | null {
-    const disc = fakeDisciplinas.find(d => d.id === id)
-    if (!disc) return null
+export async function updateDisciplina(id: number, dados: DisciplinaDTO): Promise<DisciplinaDTO | null> {
+  try {
+    const updated = await prisma.disciplina.update({
+      where: { id },
+      data: {
+        titulo: dados.titulo,
+        sigla: dados.sigla,
+        creditos: dados.creditos,
+        aulas: dados.aulas,
+      },
+      select: {
+        id: true,
+        titulo: true,
+        sigla: true,
+        creditos: true,
+        aulas: true,
+      }
+    })
 
-    const updateDisc = {
-        id: disc.id,
-        ...dados
-    }
-
-    const index = fakeDisciplinas.indexOf(disc)
-    fakeDisciplinas[index] = updateDisc
-    return updateDisc
+    return updated
+  } catch (error) {
+    console.error('Erro ao atualizar disciplina:', error)
+    return null
+  }
 }
 
-export function deleteDisciplina(id: number): boolean {
-    const disc = fakeDisciplinas.find((d) => d.id === id)
-    if(!disc)return false
-        
-    const index = fakeDisciplinas.indexOf(disc)
-    fakeDisciplinas.splice(index, 1)
-
+export async function deleteDisciplina(id: number): Promise<boolean> {
+  try {
+    await prisma.disciplina.delete({
+      where: { id },
+    })
     return true
+  } catch (error) {
+    console.error('Erro ao deletar disciplina:', error)
+    return false
+  }
 }

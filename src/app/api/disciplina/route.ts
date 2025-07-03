@@ -1,9 +1,11 @@
-import { fakeDisciplinas } from "@/db/disciplinas";
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO";
+import { createDisciplina, getDisciplinas } from "@/services/disciplina_service";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET() {
-    return new NextResponse(JSON.stringify(fakeDisciplinas), {
+    const disciplinas = await getDisciplinas()
+    return new NextResponse(JSON.stringify(disciplinas), {
         status: 200
     })
 }
@@ -11,14 +13,17 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     const body = await req.json()
 
-    const newUser = {
-        id: fakeDisciplinas.length + 1,
-        ...body,
+    const { titulo, sigla, creditos, aulas } = body as DisciplinaDTO
+
+    const resp = await createDisciplina({ titulo, sigla, creditos, aulas })
+
+    if(resp){
+        return new NextResponse( JSON.stringify({ error: 'Nova disciplina cadastrada com sucesso.' }),
+        { status: 201 }
+      )
+    } else {
+        return new NextResponse( JSON.stringify({ error: 'Erro ao criar disciplina.' }),
+        { status: 500 }
+      )
     }
-
-    fakeDisciplinas.push(newUser)
-
-    return new NextResponse(JSON.stringify(newUser), {
-        status: 201,
-    })
 }
