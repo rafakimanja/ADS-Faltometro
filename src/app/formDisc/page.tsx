@@ -1,6 +1,6 @@
 'use client'
 
-import { Disciplina } from "@/@types/disciplina"
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO"
 import { useState } from "react"
 import Link from "next/link"
 import { createDisciplina } from "@/functions/apiDisciplina"
@@ -15,12 +15,10 @@ export default function NovaDisciplina(){
     
 
     const handleSubmit = async (titulo: string, sigla: string, creditos: number, aulas: number) => {
-        const objDisciplina: Disciplina = { titulo, sigla, creditos, aulas }
+        const objDisciplina: DisciplinaDTO = { titulo, sigla, creditos, aulas }
         createDisciplina(objDisciplina)
-         .then(() => alert(`Nova disciplina cadastrada`))
-         .catch(err => {
-            alert(err)
-         })
+         .then((msg) => alert(msg))
+         .catch(err => alert(err))
     }
 
     return(
