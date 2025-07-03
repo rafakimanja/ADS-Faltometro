@@ -40,9 +40,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const resp = await updateFalta(idNum, { data, disciplinaID, periodosFaltados })
 
     if(!resp){
-        return new NextResponse("Falta nao registrada", {
-            status: 404,
-        })
+        return new NextResponse(JSON.stringify({ error: "Falta nao registrada" }), 
+            { status: 404 }
+        )
     }
 
     return new NextResponse(JSON.stringify({

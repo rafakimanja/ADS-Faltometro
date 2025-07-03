@@ -1,7 +1,7 @@
-import { Disciplina } from "@/@types/disciplina";
-import { Falta } from "@/@types/falta";
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO"
+import type { FaltaDTO } from "@/@types/faltaDTO"
 
-export default function calculaFreq(disciplina: Disciplina, faltas: Falta[]){
+export default function calculaFreq(disciplina: DisciplinaDTO, faltas: FaltaDTO[]){
 
     const totalAulas = disciplina.aulas * disciplina.creditos
     let totalFaltas = 0

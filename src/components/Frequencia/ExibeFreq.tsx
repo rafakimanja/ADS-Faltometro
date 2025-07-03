@@ -1,21 +1,21 @@
-import type { Disciplina } from "@/@types/disciplina";
-import type { Falta } from "@/@types/falta";
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO";
+import type { FaltaDTO } from "@/@types/faltaDTO";
 import { fetchFaltas } from "@/functions/apiFalta";
 import calculaFreq from "@/functions/calculaFrequencia";
 import { useEffect, useState } from "react";
 
 interface ExibeFrequenciaProps {
-  disciplina: Disciplina;
+  disciplina: DisciplinaDTO;
 }
 
 export default function ExibeFrequencia({ disciplina }: ExibeFrequenciaProps) {
-  const [faltas, setFaltas] = useState<Falta[]>([]);
+  const [faltas, setFaltas] = useState<FaltaDTO[]>([]);
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     if (disciplina?.id) {
       fetchFaltas(disciplina.id)
-        .then((data) => setFaltas(data || []))
+        .then(setFaltas)
         .catch((err) => alert(err))
         .finally(() => setCarregando(false));
     }

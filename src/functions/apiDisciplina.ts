@@ -1,6 +1,6 @@
-import { Disciplina } from "@/@types/disciplina";
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO";
 
-export async function fetchDisciplinas(): Promise<Disciplina[]> {
+export async function fetchDisciplinas(): Promise<DisciplinaDTO[]> {
     const response = await fetch('/api/disciplina')
     const data = await response.json()
     if(!response.ok) {
@@ -10,17 +10,17 @@ export async function fetchDisciplinas(): Promise<Disciplina[]> {
     return data
 }
 
-export async function getDisciplina(id: number): Promise<Disciplina>{
+export async function getDisciplinaById(id: number): Promise<DisciplinaDTO>{
     const response = await fetch(`/api/disciplina/${id}`)
     const data = await response.json()
     if(!response.ok) {
         console.table(data)
-        throw new Error('Erro ao buscar pela disciplina')
+        throw new Error(data.error)
     }
     return data
 }
 
-export async function createDisciplina(disciplina: Disciplina): Promise<Disciplina> {
+export async function createDisciplina(disciplina: DisciplinaDTO){
     const response = await fetch('/api/disciplina', {
         method: 'POST',
         headers: {
@@ -29,13 +29,30 @@ export async function createDisciplina(disciplina: Disciplina): Promise<Discipli
         body: JSON.stringify(disciplina)
     })
 
-    const { data } = await response.json()
+    const data = await response.json()
 
     if(!response.ok){
         console.table(data)
-        throw new Error('Erro ao criar nova Disciplina')
+        throw new Error(data.error)
     }
 
+    return data.message
+}
+
+export async function updateDisciplina(id: number, disciplina: DisciplinaDTO) {
+    const response = await fetch(`/api/disciplina/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(disciplina)
+    })
+
+    const data = await response.json()
+    if(!response.ok){
+        console.table(data)
+        throw new Error(data.error)
+    }
     return data
 }
 
@@ -50,7 +67,7 @@ export async function deleteDisciplina(id: number) {
     const data = await response.json()
     if(!response.ok) {
         console.table(data)
-        throw new Error('Erro ao deletar disciplina')
+        throw new Error(data.error)
     }
-    return data
+    return data.message
 }
