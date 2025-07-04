@@ -1,8 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#Faltometro
 
-## Getting Started
+##Intruções de Instalação
 
-First, run the development server:
+Crie um arquivo `.env` copiando o arquivo `.env.example` e modificando conforme os dados de conexão ao banco de dados.
+
+```bash
+npm install
+```
+Comando para instalar as dependências
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Comando para fazer a migração das tabelas ao banco de dados
 
 ```bash
 npm run dev
