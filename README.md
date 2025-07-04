@@ -1,6 +1,6 @@
-#Faltometro
+# Faltometro
 
-##Intruções de Instalação
+## Intruções de Instalação
 
 Crie um arquivo `.env` copiando o arquivo `.env.example` e modificando conforme os dados de conexão ao banco de dados.
 
