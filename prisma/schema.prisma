@@ -27,5 +27,5 @@ model Falta {
   data             DateTime
   periodosFaltados Int
   disciplinaID     Int
-  disciplina       Disciplina @relation(fields: [disciplinaID], references: [id])
+  disciplina       Disciplina @relation(fields: [disciplinaID], references: [id], onDelete: Cascade)
 }

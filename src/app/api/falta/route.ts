@@ -42,5 +42,5 @@ export async function POST(req: NextRequest) {
     if(resp)
         return new NextResponse(JSON.stringify({ message: 'Falta registrada com sucesso'}), { status: 201 })
     else
-        return new NextResponse(JSON.stringify({ error: 'Erro ap registrar falta'}), { status: 500 })
+        return new NextResponse(JSON.stringify({ error: 'Erro ao registrar falta'}), { status: 500 })
 }

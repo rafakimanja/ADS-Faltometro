@@ -3,10 +3,12 @@
 import type { DisciplinaDTO } from "@/@types/disciplinaDTO"
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { createDisciplina } from "@/functions/apiDisciplina"
 import './form.css'
 
 export default function NovaDisciplina(){
+    const router = useRouter()
 
     const [titulo, setTitulo] = useState('')
     const [sigla, setSigla] = useState('')
@@ -16,9 +18,14 @@ export default function NovaDisciplina(){
 
     const handleSubmit = async (titulo: string, sigla: string, creditos: number, aulas: number) => {
         const objDisciplina: DisciplinaDTO = { titulo, sigla, creditos, aulas }
-        createDisciplina(objDisciplina)
-         .then((msg) => alert(msg))
-         .catch(err => alert(err))
+
+        try{
+            const msg = await createDisciplina(objDisciplina)
+            alert(msg)
+            router.push('/')
+        } catch(err){
+            alert(err)
+        }
     }
 
     return(

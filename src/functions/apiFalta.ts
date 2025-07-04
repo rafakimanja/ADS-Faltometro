@@ -55,7 +55,7 @@ export async function updateFalta(id: number, falta: FaltaDTO) {
         throw new Error(data.error)
     }
 
-    return data
+    return data.message
 }
 
 export async function deleteFalta(id: number) {

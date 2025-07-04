@@ -1,19 +1,20 @@
 'use client'
 
-
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { deleteDisciplina, getDisciplinaById } from '@/functions/apiDisciplina'
+import { useRouter } from 'next/navigation'
+import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
+import type { FaltaDTO } from '@/@types/faltaDTO'
+import { deleteDisciplina, getDisciplinaById, updateDisciplina } from '@/functions/apiDisciplina'
 import { fetchFaltas } from '@/functions/apiFalta'
 import TabelaFaltas from '@/components/Tabela/TabelaFaltas'
 import ExibeFrequencia from '@/components/Frequencia/ExibeFreq'
-import './disciplina.css'
 import ModalUpdate from '@/components/Modal/ModalUpdate'
-import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
-import type { FaltaDTO } from '@/@types/faltaDTO'
-import { updateDisciplina } from '@/services/disciplina_service'
+
+import './disciplina.css'
 
 export default function Disciplina(){
+    const router = useRouter()
 
     const params = useParams()
     const id = Number(params.id)
@@ -35,14 +36,29 @@ export default function Disciplina(){
 
     }, [id])
 
-    const deletar = async (id: number) => {
+    const deleteDisc = async (id: number) => {
         const resp = await deleteDisciplina(id)
         alert(resp)
+        router.push('/')
     }
 
-    const atualizar = async (objDisc: DisciplinaDTO) => {
-        updateDisciplina(id, objDisc)
-         .then(resp => alert(resp))
+    const funcaoAtualiza = async (obj: DisciplinaDTO | FaltaDTO, id: number, objType: 'disciplina' | 'falta') => {
+        if(objType === 'disciplina' && 'titulo' in obj){
+            try{
+                const resp = await updateDisciplina(id, obj)
+                alert(resp)
+
+                const objAtt = await getDisciplinaById(id)
+                setDisciplina(objAtt)
+            } catch(err) {
+                alert(err)
+            }
+        }
+    }
+
+    const refreshFaltas = async () => {
+        fetchFaltas(id)        
+         .then(setFaltas)
          .catch(err => alert(err))
     }
 
@@ -61,12 +77,12 @@ export default function Disciplina(){
                     </div>
                     <div className="grupo-botoes">
                         <button className='botoes' id='submit' onClick={() => {setOpen(true)}}>Editar</button>
-                        <button onClick={() => deletar(disciplina.id!)} className='botoes' id='cancel'>Excluir</button>
+                        <button onClick={() => deleteDisc(disciplina.id!)} className='botoes' id='cancel'>Excluir</button>
                     </div>
                     { 
                         faltas ? (
                             <div className="tabela-faltas">
-                                <TabelaFaltas faltas={faltas} />
+                                <TabelaFaltas faltas={faltas} onChange={refreshFaltas} />
                             </div>
                         ) : ''
                     }
@@ -75,7 +91,7 @@ export default function Disciplina(){
                 <p>Carregando disciplina...</p>
             )}
             {
-                disciplina ? <ModalUpdate isOpen={open} onClose={() => setOpen(false)} formType={'disciplina'} onSubmit={atualizar} objType={disciplina}/> : ''
+                disciplina ? <ModalUpdate isOpen={open} onClose={() => setOpen(false)} formType={'disciplina'} onSubmit={funcaoAtualiza} objType={disciplina}/> : ''
             }
         </div>
     )

@@ -1,19 +1,21 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Disciplina } from '@/@types/disciplina'
-import { Falta } from '@/@types/falta'
+import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
+import type { FaltaDTO } from '@/@types/faltaDTO'
 import Link from 'next/link'
-import './formFalta.css'
+import { useRouter } from "next/navigation"
 import { fetchDisciplinas } from '@/functions/apiDisciplina'
 import { createFalta } from '@/functions/apiFalta'
+import './formFalta.css'
 
 export default function FormFalta(){
+    const router = useRouter()
 
     const [creditos, setCreditos] = useState(0)
     const [data, setData] = useState<Date | null>(null)
-    const [disciplinas, setDisciplinas] = useState<Disciplina[] | null>(null)
-    const [disciplina, setDisciplina] = useState<Disciplina | null>(null)
+    const [disciplinas, setDisciplinas] = useState<DisciplinaDTO[] | null>(null)
+    const [disciplina, setDisciplina] = useState<DisciplinaDTO | null>(null)
 
     useEffect(() => {
         fetchDisciplinas()
@@ -34,7 +36,6 @@ export default function FormFalta(){
     }
 
     const handleSubmit = async () => {
-
         if(!data){
             alert('Adicione uma data válida!')
             return
@@ -50,12 +51,16 @@ export default function FormFalta(){
             return
         }
 
-        const objFalta: Falta = {data, periodosFaltados: creditos, disciplinaID: disciplina.id!}
-        createFalta(objFalta)
-         .then(() => alert(`Nova falta adicionada em ${disciplina.titulo}`))
-         .catch(err => { 
-            alert(err) 
-        })
+        data.setMinutes(data.getMinutes() + data.getTimezoneOffset())
+        const objFalta: FaltaDTO = {data, periodosFaltados: creditos, disciplinaID: disciplina.id!}
+
+        try{
+            const msg = await createFalta(objFalta)
+            alert(msg)
+            router.push('/')
+        } catch(err){
+            alert(err)
+        }
     }
 
     return(
@@ -86,6 +91,7 @@ export default function FormFalta(){
                     <button type="button" className="btn" id="cancel">Voltar</button>
                 </Link>
                 <button className='btn' id='submit' onClick={() => {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     handleSubmit(),
                     setCreditos(0),
                     setData(null),

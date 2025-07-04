@@ -1,22 +1,34 @@
 'use client'
 
-import { Falta } from "@/@types/falta"
-import './TabelaFaltas.css'
+import type { FaltaDTO } from "@/@types/faltaDTO"
+import type { DisciplinaDTO } from "@/@types/disciplinaDTO"
+import { deleteFalta, updateFalta } from "@/functions/apiFalta"
 import { useState } from "react"
 import ModalUpdate from "../Modal/ModalUpdate"
+import './TabelaFaltas.css'
 
 interface TabelaFaltasProps {
-    faltas: Falta[]
+    faltas: FaltaDTO[],
+    onChange: () => void
 }
 
-export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
-
+export default function TabelaFaltas({ faltas, onChange }: TabelaFaltasProps){
     const [open, setOpen] = useState(false)
-    const [faltaSelecionada, setFaltaSelecionada] = useState<Falta | null>(null)
+    const [faltaSelecionada, setFaltaSelecionada] = useState<FaltaDTO | null>(null)
 
-     const handleSubmit = (data: any) => {
-        console.log('Enviado:', data)
-        // faça PUT / PATCH aqui
+    const deletaFalta = async (falta: FaltaDTO) => {
+        const resp = await deleteFalta(falta.id!)
+        alert(resp)
+       onChange()
+    }
+
+     const funcaoAtualiza = async (obj: DisciplinaDTO | FaltaDTO, id: number, objType: 'disciplina' | 'falta') => {
+        if (objType === 'falta' && 'data' in obj){
+            updateFalta(id, obj)
+             .then(resp => alert(resp))
+             .catch(err => alert(err))
+            onChange()
+        }
     }
 
     return(
@@ -40,7 +52,7 @@ export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
                                     <button className="btn-tabela" id="submit" onClick={() => {setFaltaSelecionada(falta); setOpen(true)}}>
                                         <img src="/edit.svg" alt="" />
                                     </button>
-                                    <button className="btn-tabela" id="cancel">
+                                    <button className="btn-tabela" id="cancel" onClick={() => deletaFalta(falta)}>
                                         <img src="/delete.svg" alt="" />
                                     </button>
                                 </td>
@@ -51,7 +63,7 @@ export default function TabelaFaltas({ faltas }: TabelaFaltasProps){
                 </tbody>
             </table>
             {
-                faltaSelecionada ? <ModalUpdate isOpen={open} onClose={() => setOpen(false)} formType={'falta'} onSubmit={handleSubmit} objType={faltaSelecionada}/> : ''
+                faltaSelecionada ? <ModalUpdate isOpen={open} onClose={() => setOpen(false)} formType={'falta'} onSubmit={funcaoAtualiza} objType={faltaSelecionada}/> : ''
             }
         </>
         

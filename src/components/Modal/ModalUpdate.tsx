@@ -8,10 +8,10 @@ import type { DisciplinaDTO } from '@/@types/disciplinaDTO'
 
 interface ModalUpdateProps {
   isOpen: boolean
-  onClose: () => void
   formType: 'disciplina' | 'falta'
   objType: DisciplinaDTO | FaltaDTO
-  onSubmit: (obj: DisciplinaDTO | FaltaDTO) => void
+  onClose: () => void
+  onSubmit: (obj: DisciplinaDTO | FaltaDTO, id: number, objType: 'disciplina' | 'falta') => void
 }
 
 export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubmit }: ModalUpdateProps) {
@@ -43,7 +43,8 @@ export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubm
 
     const handleSalvar = (formType: 'disciplina' | 'falta') => {
       if(formType === 'disciplina'){
-        onSubmit({ titulo, sigla, creditos, aulas })
+        const discAtt: DisciplinaDTO = { titulo, sigla, creditos, aulas }
+        onSubmit(discAtt, objType.id!, 'disciplina')
       }
 
       if (formType === 'falta') {
@@ -51,7 +52,8 @@ export default function ModalUpdate({ isOpen, onClose, formType, objType, onSubm
           alert("Data não informada");
           return;
         }
-        onSubmit({ data, periodosFaltados: creditosFalta, disciplinaID: idDisc });
+        const faltaAtt: FaltaDTO = { data, periodosFaltados: creditosFalta, disciplinaID: idDisc }
+        onSubmit(faltaAtt, objType.id!, 'falta');
       }
       onClose()
     }
